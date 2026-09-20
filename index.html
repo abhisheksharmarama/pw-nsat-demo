@@ -1,680 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PW NSAT 2026 — Mock-test Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    body {
-      background-color: #f7f9fd;
-      color: #1a1c20;
-      padding: 24px 20px 60px;
-    }
-
-    .container {
-      max-width: 1040px;
-      margin: 0 auto;
-    }
-
-    /* Top Navigation Bar */
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .user-badge {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .user-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #475569;
-      font-size: 15px;
-    }
-
-    .user-info h2 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .user-info p {
-      font-size: 12px;
-      color: #64748b;
-    }
-
-    .page-tag {
-      background: #eef2f6;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #475569;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #0f172a;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .back-btn:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-    }
-
-    /* Hero Banner */
-    .hero-banner {
-      background: linear-gradient(135deg, #092019 0%, #061913 100%);
-      border-radius: 20px;
-      padding: 28px 32px;
-      color: #ffffff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 28px;
-      box-shadow: 0 10px 25px -5px rgba(6, 25, 19, 0.2);
-    }
-
-    .hero-left {
-      max-width: 420px;
-    }
-
-    .icon-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #73d999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #092019;
-      font-weight: 800;
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-
-    .hero-left h1 {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.25;
-      letter-spacing: -0.3px;
-    }
-
-    .hero-right {
-      flex: 1;
-      max-width: 440px;
-    }
-
-    .progress-header {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: #94a3b8;
-      margin-bottom: 22px;
-    }
-
-    /* Stepper Progress Bar */
-    .progress-track-wrapper {
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .track-line {
-      position: absolute;
-      top: 5px;
-      left: 6px;
-      right: 6px;
-      height: 3px;
-      background: #1e3a30;
-      z-index: 1;
-    }
-
-    .track-fill {
-      height: 100%;
-      width: 0%;
-      background: #5eead4;
-      transition: width 0.4s ease;
-    }
-
-    .milestones {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      z-index: 2;
-    }
-
-    .milestone {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    .milestone-node {
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      background: #092019;
-      border: 2px solid #33594b;
-      transition: all 0.3s;
-    }
-
-    .milestone.active .milestone-node {
-      background: #5eead4;
-      border-color: #5eead4;
-      box-shadow: 0 0 10px rgba(94, 234, 212, 0.6);
-    }
-
-    .milestone-tag {
-      position: absolute;
-      bottom: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #e2e8f0;
-      white-space: nowrap;
-    }
-
-    .milestone-label {
-      margin-top: 8px;
-      font-size: 11px;
-      color: #94a3b8;
-      text-align: center;
-      line-height: 1.2;
-    }
-
-    .progress-hint {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: #cbd5e1;
-      font-weight: 500;
-    }
-
-    .hint-bullet {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #f59e0b;
-      display: inline-block;
-    }
-
-    /* Expiry Notice Banner */
-    .expiry-banner {
-      margin-top: 14px;
-      background: #ffffff;
-      border: 1px solid #eef2f6;
-      border-radius: 12px;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #475569;
-    }
-
-    /* Papers Grid Section */
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 32px 0 18px;
-    }
-
-    .section-head h2 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .view-all-link {
-      color: #4f46e5;
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #eef2f6;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .badge-live {
-      background: #fef2f2;
-      color: #dc2626;
-      border: 1px solid #fecaca;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.5px;
-    }
-
-    .card-body {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .paper-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: #fef3c7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .paper-info .ends-text {
-      font-size: 11px;
-      color: #64748b;
-      margin-bottom: 2px;
-    }
-
-    .paper-info h3 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .paper-info .meta {
-      font-size: 12px;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
-
-    .attempt-btn {
-      width: 100%;
-      background: #0f172a;
-      color: #ffffff;
-      border: none;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-
-    .attempt-btn:hover {
-      background: #1e293b;
-    }
-
-    .attempt-btn.completed {
-      background: #10b981;
-      cursor: default;
-    }
-
-    /* NSAT Quick Revision Footer Card */
-    .revision-card {
-      margin-top: 24px;
-      background: #12101e;
-      border-radius: 18px;
-      padding: 24px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      position: relative;
-    }
-
-    .badge-data {
-      position: absolute;
-      top: 14px;
-      right: 20px;
-      background: #2a223e;
-      color: #eab308;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .revision-text h3 {
-      color: #ffffff;
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .revision-text p {
-      color: #94a3b8;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-
-    .revision-btn {
-      background: #ffffff;
-      color: #0f172a;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .topics-grid {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .topic-pill {
-      background: #2d2448;
-      border: 1px solid #43366b;
-      color: #e2e8f0;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 16px 14px;
-      border-radius: 12px;
-      text-align: center;
-      min-width: 90px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .topic-pill:hover {
-      background: #3e3164;
-    }
-
-    @media (max-width: 860px) {
-      .hero-banner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .hero-right {
-        width: 100%;
-        max-width: none;
-      }
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .revision-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>PW NSAT 2026 — Win up to 100% Scholarship | Free to register</title>
+<meta name="description" content="PW NSAT 2026: free national scholarship test for Classes 5–12 & droppers. Register in 30 seconds, up to 100% scholarship, ₹2.5 Cr+ cash prizes. Online or offline." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <div class="container">
-    <!-- Top Nav -->
-    <div class="top-nav">
-      <div class="user-badge">
-        <div class="user-avatar">A</div>
-        <div class="user-info">
-          <h2>Hi, Abhishek</h2>
-          <p>Your NSAT prep hub</p>
-        </div>
-        <div class="page-tag">PW NSAT 2026 — Final landing page + mock-test hub</div>
+<!-- =================== LANDING =================== -->
+<div id="landing">
+<div class="banner">Prototype. Numbers, results, video & photos marked <b>◆</b> need real PW data. Form + mock tests are a front-end mock — wire to your backend.</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="mark">PW</span> NSAT 2026</div>
+    <div class="nav-r">
+      <a class="callh" href="tel:07290071259"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Talk to a counsellor</a>
+      <button class="btn btn-gold" onclick="toForm()">Register free</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="ribbon"><span class="pulse"></span> Registrations open · Session 2027</span>
+      <h1>Win up to <span class="amt">100% Scholarship</span> — free to register.</h1>
+      <p class="hindi">Talent hai toh scholarship pakki.</p>
+      <p class="sub">National scholarship test for Classes 5–12 & droppers. Register in 30 seconds.</p>
+      <div class="usp">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> ₹0 fee</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Online or offline</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> ₹2.5 Cr+ cash prizes</span>
       </div>
-      <button class="back-btn" onclick="alert('Navigating back to main site...')">
-        <span>&larr;</span> Back to site
-      </button>
+      <div class="count" aria-label="Time left to register">
+        <div class="u"><div class="n" id="cd-d">00</div><div class="l">Days</div></div>
+        <div class="u"><div class="n" id="cd-h">00</div><div class="l">Hrs</div></div>
+        <div class="u"><div class="n" id="cd-m">00</div><div class="l">Min</div></div>
+        <div class="u"><div class="n" id="cd-s">00</div><div class="l">Sec</div></div>
+      </div>
+      <div class="cnote">⚡ Registration for the nearest slot closes soon</div>
     </div>
 
-    <!-- Hero Card -->
-    <div class="hero-banner">
-      <div class="hero-left">
-        <div class="icon-badge">₹</div>
-        <h1>Attempt mock papers & get extra discount</h1>
+    <!-- FORM: register -> verify -> pick test (mode + date) -->
+    <div class="card" id="formCard">
+      <div class="dots"><i class="on" id="d1"></i><i id="d2"></i><i id="d3"></i></div>
+
+      <div id="s1">
+        <h3>Register in 30 seconds</h3>
+        <div class="free"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Free · No fee · No documents</div>
+        <div class="field">
+          <label for="f-class">Class</label>
+          <select id="f-class"><option value="">Select class</option>
+            <option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option>
+            <option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option>
+            <option>Dropper (12th passed)</option></select>
+        </div>
+        <div class="field">
+          <label for="f-phone">Mobile number</label>
+          <div class="phone-in"><span class="cc">+91</span><input id="f-phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit number" autocomplete="tel-national"></div>
+        </div>
+        <button class="btn btn-gold submit" onclick="toS2()">Get OTP →</button>
+        <label class="wa-opt"><input type="checkbox" id="wa" checked> Send updates on WhatsApp</label>
+        <p class="privacy">Registration is 100% free. We'll never share your number.</p>
       </div>
 
-      <div class="hero-right">
-        <div class="progress-header" id="progressCount">YOUR PROGRESS: 0/5 mock papers</div>
-
-        <div class="progress-track-wrapper">
-          <div class="track-line">
-            <div class="track-fill" id="trackFill"></div>
-          </div>
-          <div class="milestones">
-            <div class="milestone active">
-              <div class="milestone-node"></div>
-            </div>
-            <div class="milestone" id="m1">
-              <div class="milestone-node"></div>
-            </div>
-            <div class="milestone" id="m2">
-              <div class="milestone-node"></div>
-            </div>
-            <div class="milestone" id="m3">
-              <span class="milestone-tag">₹500 off</span>
-              <div class="milestone-node"></div>
-              <div class="milestone-label">3 mock<br>papers</div>
-            </div>
-            <div class="milestone" id="m4">
-              <div class="milestone-node"></div>
-            </div>
-            <div class="milestone" id="m5">
-              <span class="milestone-tag">₹1000 off</span>
-              <div class="milestone-node"></div>
-              <div class="milestone-label">5 mock<br>papers</div>
-            </div>
-          </div>
+      <div id="s2" class="hidden">
+        <h3>Enter OTP</h3>
+        <div class="free" style="color:var(--muted);font-weight:600">Sent to <b id="pEcho" style="color:var(--ink)"></b></div>
+        <div class="otp">
+          <input maxlength="1" inputmode="numeric" class="o"><input maxlength="1" inputmode="numeric" class="o"><input maxlength="1" inputmode="numeric" class="o">
+          <input maxlength="1" inputmode="numeric" class="o"><input maxlength="1" inputmode="numeric" class="o"><input maxlength="1" inputmode="numeric" class="o">
         </div>
-
-        <div class="progress-hint" id="progressHint">
-          <span class="hint-bullet"></span>
-          <span>Attempt 3 more mock papers to unlock ₹500 off on your PW batch.</span>
-        </div>
+        <button class="btn btn-gold submit" onclick="toS3()">Verify →</button>
+        <div style="display:flex;justify-content:space-between"><button class="link" onclick="backS1()">← Edit number</button><button class="link" onclick="alert('OTP resent (demo)')">Resend OTP</button></div>
       </div>
-    </div>
 
-    <!-- Expiry Notice -->
-    <div class="expiry-banner">
-      <span>⏳</span>
-      <span>Mock papers will expire on <strong>30th Sept 2026</strong> — attempt before your exam date.</span>
-    </div>
-
-    <!-- Mock Papers Section -->
-    <div class="section-head">
-      <h2>Your mock papers</h2>
-      <a href="#" class="view-all-link" onclick="alert('Showing all mock tests'); return false;">View all &rarr;</a>
-    </div>
-
-    <div class="cards-grid">
-      <!-- Card 1 -->
-      <div class="card">
-        <div class="card-top">
-          <span></span>
-          <span class="badge-live">LIVE</span>
-        </div>
-        <div class="card-body">
-          <div class="paper-icon">📝</div>
-          <div class="paper-info">
-            <div class="ends-text">Ends 30 Sept</div>
-            <h3>Mock Paper 1</h3>
-            <div class="meta">60 mins · 40 questions</div>
+      <div id="s3" class="hidden">
+        <h3>Pick your test</h3>
+        <div class="free" style="color:var(--muted);font-weight:600">Last step — choose how & when.</div>
+        <div class="field">
+          <label>Exam mode</label>
+          <div class="mode">
+            <label class="on"><input type="radio" name="mode" value="Online" checked onchange="pickMode(this)"> Online</label>
+            <label><input type="radio" name="mode" value="Offline" onchange="pickMode(this)"> Offline</label>
           </div>
         </div>
-        <button class="attempt-btn" onclick="completePaper(1, this)">&rarr; Attempt</button>
+        <div class="field">
+          <label for="f-date">Date of exam</label>
+          <select id="f-date"><option value="">Select date</option>
+            <option>Thu, 1 Oct 2026</option><option>Fri, 2 Oct 2026</option><option>Sat, 3 Oct 2026</option>
+            <option>Sun, 4 Oct 2026</option><option>Sat, 10 Oct 2026</option><option>Sun, 11 Oct 2026</option></select>
+        </div>
+        <div class="field">
+          <label for="f-name">Student's name</label>
+          <input id="f-name" type="text" placeholder="Full name">
+        </div>
+        <button class="btn btn-gold submit" onclick="toDone()">Confirm registration →</button>
       </div>
 
-      <!-- Card 2 -->
-      <div class="card">
-        <div class="card-top">
-          <span></span>
-          <span class="badge-live">LIVE</span>
+      <div id="s4" class="hidden">
+        <div class="success">
+          <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>You're registered! 🎉</h3>
+          <p style="color:var(--muted);font-size:14px;margin:8px 0 16px">Your slot is booked. Attempt <b>free mock papers</b> to prepare — and unlock up to <b>₹1000 extra off</b>.</p>
+          <button class="btn btn-gold submit" onclick="openDashboard()">Get mock tests →</button>
         </div>
-        <div class="card-body">
-          <div class="paper-icon">📝</div>
-          <div class="paper-info">
-            <div class="ends-text">Ends 30 Sept</div>
-            <h3>Mock Paper 2</h3>
-            <div class="meta">60 mins · 40 questions</div>
-          </div>
-        </div>
-        <button class="attempt-btn" onclick="completePaper(2, this)">&rarr; Attempt</button>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card">
-        <div class="card-top">
-          <span></span>
-          <span class="badge-live">LIVE</span>
-        </div>
-        <div class="card-body">
-          <div class="paper-icon">📝</div>
-          <div class="paper-info">
-            <div class="ends-text">Ends 30 Sept</div>
-            <h3>Mock Paper 3</h3>
-            <div class="meta">60 mins · 40 questions</div>
-          </div>
-        </div>
-        <button class="attempt-btn" onclick="completePaper(3, this)">&rarr; Attempt</button>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="card">
-        <div class="card-top">
-          <span></span>
-          <span class="badge-live">LIVE</span>
-        </div>
-        <div class="card-body">
-          <div class="paper-icon">📝</div>
-          <div class="paper-info">
-            <div class="ends-text">Ends 30 Sept</div>
-            <h3>Mock Paper 4</h3>
-            <div class="meta">60 mins · 40 questions</div>
-          </div>
-        </div>
-        <button class="attempt-btn" onclick="completePaper(4, this)">&rarr; Attempt</button>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="card">
-        <div class="card-top">
-          <span></span>
-          <span class="badge-live">LIVE</span>
-        </div>
-        <div class="card-body">
-          <div class="paper-icon">📝</div>
-          <div class="paper-info">
-            <div class="ends-text">Ends 30 Sept</div>
-            <h3>Mock Paper 5</h3>
-            <div class="meta">60 mins · 40 questions</div>
-          </div>
-        </div>
-        <button class="attempt-btn" onclick="completePaper(5, this)">&rarr; Attempt</button>
-      </div>
-    </div>
-
-    <!-- Quick NSAT Revision Footer -->
-    <div class="revision-card">
-      <div class="badge-data">◆ real PW data</div>
-      <div class="revision-text">
-        <h3>Need a quick NSAT revision?</h3>
-        <p>Revise key concepts with short videos before you attempt.</p>
-        <button class="revision-btn" onclick="alert('Opening video series...')">Start revising</button>
-      </div>
-
-      <div class="topics-grid">
-        <div class="topic-pill">Quantum<br>Mechanics</div>
-        <div class="topic-pill">Express Courses</div>
-        <div class="topic-pill">Cheat Series</div>
-        <div class="topic-pill">NEET Super Stars</div>
       </div>
     </div>
   </div>
+</section>
 
-  <script>
-    const completedPapers = new Set();
+<!-- EXAM DETAILS (second scroll) -->
+<section class="blk">
+  <div class="wrap">
+    <p class="kick">Exam details</p>
+    <h2>Dates & eligibility</h2>
+    <div class="exam">
+      <div class="ex"><div class="l">Online</div><div class="v">1 – 15 Oct 2026<br>Anytime, 24×7</div></div>
+      <div class="ex"><div class="l">Offline</div><div class="v">3, 4, 10 & 11 Oct 2026<br>Two slots/day</div></div>
+      <div class="ex"><div class="l">Duration</div><div class="v">60 minutes<br>No negative marking</div></div>
+      <div class="ex"><div class="l">Who can apply</div><div class="v">Classes 5–12<br>& droppers</div></div>
+    </div>
+    <div style="margin-top:18px"><button class="btn btn-gold" onclick="toForm()">Register free →</button></div>
+  </div>
+</section>
 
-    function completePaper(id, btn) {
-      if (completedPapers.has(id)) return;
+<!-- TESTIMONIALS: video + photos -->
+<section class="blk" style="background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">Success stories</p>
+    <h2>Hear it from PW scholars</h2>
+    <div class="tw">
+      <div class="video slot" onclick="alert('Embed the real student testimonial video here')">
+        <span class="badge">▶ Watch story</span>
+        <div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="cap"><b>“NSAT got me a 100% scholarship.”</b><span>Add a real 30–60s student video · ◆ replace</span></div>
+      </div>
+      <div class="pics slot">
+        <div class="pic"><span class="won">92% off</span><div class="ph">🧑‍🎓</div><div class="n">Riya M.</div><div class="s">Class 11 · Patna</div></div>
+        <div class="pic"><span class="won">100% off</span><div class="ph">🧑‍🎓</div><div class="n">Aditya K.</div><div class="s">Class 10 · Indore</div></div>
+        <div class="pic"><span class="won">85% off</span><div class="ph">🧑‍🎓</div><div class="n">Sneha P.</div><div class="s">Dropper · Lucknow</div></div>
+        <div class="pic"><span class="won">75% off</span><div class="ph">🧑‍🎓</div><div class="n">Rahul V.</div><div class="s">Class 9 · Jaipur</div></div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:12px">Replace with real, consented student photos, names & scholarship won — plus a real testimonial video.</p>
+  </div>
+</section>
 
-      completedPapers.add(id);
-      btn.innerText = '✓ Completed';
-      btn.classList.add('completed');
+<!-- FAQ -->
+<section class="blk">
+  <div class="wrap">
+    <p class="kick" style="text-align:center">Common questions</p>
+    <h2 style="text-align:center">Good to know</h2>
+    <div class="faq" id="faq">
+      <div class="qa"><button>Is it really free?</button><div class="a"><p>Yes — registering and taking PW NSAT costs ₹0, with no income documents. You only pay a reduced fee later if you choose to enrol after winning a scholarship.</p></div></div>
+      <div class="qa"><button>Does everyone get 100%?</button><div class="a"><p>No. 100% is the top slab for the highest rankers; your scholarship % depends on your rank. Offline mode reaches the highest ceiling.</p></div></div>
+      <div class="qa"><button>Do I have to join PW after the test?</button><div class="a"><p>No. You keep your All India Rank, your report, and the free mock papers whether or not you enrol.</p></div></div>
+      <div class="qa"><button>Which classes can register?</button><div class="a"><p>Classes 5 to 12 and 12th-passed droppers, from any board, anywhere in India.</p></div></div>
+    </div>
+  </div>
+</section>
 
-      const count = completedPapers.size;
-      const fillPercentage = (count / 5) * 100;
-      
-      document.getElementById('trackFill').style.width = fillPercentage + '%';
-      document.getElementById('progressCount').innerText = `YOUR PROGRESS: ${count}/5 mock papers`;
+<!-- FINAL -->
+<section class="blk" style="padding-top:24px">
+  <div class="wrap">
+    <div class="final">
+      <h2>One free test. Up to 100% off.</h2>
+      <p>30 seconds to register. Registrations close soon.</p>
+      <button class="btn btn-gold" onclick="toForm()">Register free now →</button>
+    </div>
+  </div>
+</section>
 
-      // Update node indicator colors
-      for (let i = 1; i <= count; i++) {
-        const el = document.getElementById('m' + i);
-        if (el) el.classList.add('active');
-      }
+<footer>
+  <div class="wrap">
+    <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">PW</span> NSAT 2026</div>
+    <div style="margin-bottom:12px"><a href="#">Syllabus</a><a href="#">Mock papers</a><a href="#">Exam centres</a><a href="tel:07290071259">Counsellor: 07290071259</a></div>
+    <p style="margin:0;opacity:.7">Prototype for evaluation. Not an official Physics Wallah page. Scholarship terms are indicative.</p>
+  </div>
+</footer>
 
-      // Update dynamic discount banner
-      const hint = document.getElementById('progressHint');
-      if (count < 3) {
-        hint.innerHTML = `<span class="hint-bullet"></span><span>Attempt ${3 - count} more mock paper${3 - count > 1 ? 's' : ''} to unlock ₹500 off on your PW batch.</span>`;
-      } else if (count < 5) {
-        hint.innerHTML = `<span class="hint-bullet"></span><span>🎉 ₹500 unlocked! Attempt ${5 - count} more to unlock <strong>₹1000 off</strong>.</span>`;
-      } else {
-        hint.innerHTML = `<span class="hint-bullet" style="background:#10b981"></span><span>🏆 Amazing! You have unlocked the full <strong>₹1000 off</strong> discount!</span>`;
-      }
-    }
-  </script>
+<div class="mcta">
+  <button class="btn btn-gold" onclick="toForm()">Register free →</button>
+  <a class="icn call" href="tel:07290071259" aria-label="Call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+  <a class="icn wa" href="https://wa.me/910000000000" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.2s-.7 1-.9 1.2c-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.6-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-1 .9-1.2 2.1-1.2 2.3s.9 2.9 2.9 4.9c2.9 2.9 4.9 3 5.5 3 .6 0 1.9-.5 2.2-1.2.3-.7.3-1.2.2-1.3s-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
+</div>
+</div><!-- /landing -->
+
+<!-- =================== MOCK-TEST DASHBOARD =================== -->
+<div id="dashboard" class="hidden">
+  <div class="dhead">
+    <div class="wrap">
+      <div class="greet">Hi, <span id="dName">there</span><span>Your NSAT prep hub</span></div>
+      <button class="dback" onclick="backToSite()">← Back to site</button>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-bottom:40px">
+    <!-- reward tracker -->
+    <div class="tracker">
+      <div class="top">
+        <div>
+          <div class="coin">₹</div>
+          <h3>Attempt mock papers &amp; get extra discount</h3>
+        </div>
+        <div>
+          <div class="prog-h">YOUR PROGRESS: <b><span id="pDone">0</span>/5</b> mock papers</div>
+          <div class="track-line">
+            <div class="track-fill" id="trackFill"></div>
+            <div class="node" id="n1" style="left:10%"></div>
+            <div class="node" id="n2" style="left:30%"></div>
+            <div class="node" id="n3" style="left:50%">
+              <div class="flag"><div class="chip" id="chip500">₹500 <small>off</small></div><div class="lbl"><b>3</b> mock papers</div></div>
+            </div>
+            <div class="node" id="n4" style="left:70%"></div>
+            <div class="node" id="n5" style="left:90%">
+              <div class="flag"><div class="chip" id="chip1000">₹1000 <small>off</small></div><div class="lbl"><b>5</b> mock papers</div></div>
+            </div>
+          </div>
+          <div class="reward-note"><span class="dot"></span><span id="rewardNote">Attempt 3 mock papers to unlock ₹500 off on your PW batch.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="expiry">⏳ Mock papers will expire on <b>30th Sept 2026</b> — attempt before your exam date.</div>
+
+    <div class="dsec-h"><h4>Your mock papers</h4><a href="#" onclick="return false">View all →</a></div>
+    <div class="mocks" id="mocks"></div>
+
+    <!-- revision videos -->
+    <div class="revise slot">
+      <div>
+        <h4>Need a quick NSAT revision?</h4>
+        <p>Revise key concepts with short videos before you attempt.</p>
+        <button class="btn-w" onclick="alert('Would open revision videos')">Start revising</button>
+      </div>
+      <div class="thumbs">
+        <div class="t">Quantum Mechanics</div>
+        <div class="t">Express Courses</div>
+        <div class="t">Cheat Series</div>
+        <div class="t">NEET Super Stars</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
